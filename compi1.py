@@ -5,6 +5,7 @@ from tkinter import filedialog, messagebox
 import sys
 import os
 import array as ar
+from AnalizadorCSS import *
 
 # ADRIANA GÒMEZ
 # 201504236
@@ -13,7 +14,7 @@ import array as ar
 
 class interfaz:
 
-
+	MisTokens = list()
 	def __init__(self, window):
 		self.ventana = window
 		self.ventana.geometry("840x600")
@@ -29,7 +30,9 @@ class interfaz:
 		self.boton2 = Button(self.ventana, text="Abrir", bg="pink", command=self.abrirArchivo)
 		self.boton3 = Button(self.ventana, text="Guardar", bg="pink", command=self.guardarArchivo)
 		self.boton4 = Button(self.ventana, text="Guardar como", bg="pink")
-		self.boton5 = Button(self.ventana, text="Analizar", bg="pink", command=self.compilando)
+		self.boton5 = Button(self.ventana, text="Analizar JSon", bg="pink")#, command=self.compilando)
+		self.boton7 = Button(self.ventana, text="Analizar CSS", bg="pink", command=self.compilandoCSS)
+		self.boton8 = Button(self.ventana, text="Analizar HTML", bg="pink")#, command=self.compilando)
 		self.boton6 = Button(self.ventana, text="Salir", bg="pink", command=self.ventana.destroy)
 
 		self.boton1.grid(row=0,column=4)
@@ -38,6 +41,8 @@ class interfaz:
 		self.boton4.grid(row=0,column=7)
 		self.boton5.grid(row=0,column=8)
 		self.boton6.grid(row=0,column=9)
+		self.boton7.grid(row=1,column=8)
+		self.boton8.grid(row=2,column=8)
 
 
 		####-------------- AREAS DE TEXTO 
@@ -133,6 +138,11 @@ class interfaz:
 			#tokensMalos = ar.array()	
 
 
+	####-------------- METODO PARA ANALIZAR CSS --------------####
+	def compilandoCSS(self):
+		CSS = AnalizadorCSS()
+		palabra = self.areaTexto.get("1.0", "end-1c")
+        CSS.AnalisisCSS(palabra)
 
 
 if __name__=='__main__':
