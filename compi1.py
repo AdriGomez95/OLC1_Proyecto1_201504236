@@ -4,8 +4,10 @@ from tkinter import ttk
 from tkinter import filedialog, messagebox
 import sys
 import os
+import string
 import array as ar
-from AnalizadorCSS import *
+from AnalizadorCSS import Analisis
+from Token import ClaseToken
 
 # ADRIANA GÒMEZ
 # 201504236
@@ -21,8 +23,6 @@ class interfaz:
 		self.ventana.title("proyecto 1 - Adriana Gòmez")
 		self.ventana.configure(background='pale violet red')
 
-#etiqueta = tk.Label(ventana, text="Hola Adri")
-#etiqueta.pack(side=tk.RIGHT)
 
 
 		####--------------AQUI VAN LOS BOTONES
@@ -140,9 +140,20 @@ class interfaz:
 
 	####-------------- METODO PARA ANALIZAR CSS --------------####
 	def compilandoCSS(self):
-		CSS = AnalizadorCSS()
-		palabra = self.areaTexto.get("1.0", "end-1c")
-        CSS.AnalisisCSS(palabra)
+		parrafoentrada = str(self.areaTexto.get("1.0","end-1c"))
+		Analisis(parrafoentrada)
+		#print(parrafoentrada)
+		#self.MisTokens = AgregarTK()
+
+		#p = ""
+		#for j in self.MisTokens:
+		#	p += j + '\n'
+
+		#self.areaTexto2.delete("1.0",END)
+		#self.areaTexto2.insert(INSERT, p)
+		
+		
+
 
 
 if __name__=='__main__':
