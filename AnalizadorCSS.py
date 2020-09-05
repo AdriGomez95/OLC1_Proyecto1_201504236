@@ -17,18 +17,26 @@ def Analisis(parrafo):
     estado = 0
     numerotk = 0
     palabra = ""
-    entrada = str(parrafo)
-    linea = entrada.split('\n')
+    #entrada = str(parrafo)
+    #linea = entrada.split('\n')
     fila = 0
+    #linea = 0
     control =0
+    columna = 0
     #---- RECORRIENDO POR FILAS EL PARRAFO ----#
-    while control < len(linea):
+    while control < len(parrafo):
         primero = ""
-        columna = 0
-        letra = list(linea[fila])
+     #   letra = list(linea[fila])
 
-        if estado is 0:
-            if letra[columna] == "/":
+
+
+        if estado == 0:
+            if parrafo[control] == "\n":
+                control+=1
+                fila+=1
+                numerotk+=1
+            
+            elif parrafo[control] == "/":
                 control+=1
                 estado = 1
                 numerotk += 1
@@ -37,10 +45,12 @@ def Analisis(parrafo):
                 #listaTokens.append(AgregarTk(numerotk,fila,columna,palabra,"token /"))
                 nuevo=ClaseToken(numerotk,fila,columna,palabra,"token /")
                 listaTokens.append(nuevo)
-                    
                 
-        elif estado is 1:
-            if letra[columna] == "*":
+
+
+
+        if estado == 1:
+            if parrafo[control] == "*":
                 control+=1
                 estado = 6
                 numerotk += 1
@@ -50,8 +60,11 @@ def Analisis(parrafo):
                 nuevo=ClaseToken(numerotk,fila,columna,palabra,"token *")
                 listaTokens.append(nuevo)
 
-        elif estado is 6:
-            if letra[columna] == "*":
+
+
+
+        if estado == 6:
+            if parrafo[control] == "*":
                 control+=1
                 estado = 7
                 numerotk += 1
@@ -60,22 +73,45 @@ def Analisis(parrafo):
                 #listaTokens.append(AgregarTk(numerotk,fila,columna,palabra,"token *"))
                 nuevo=ClaseToken(numerotk,fila,columna,palabra,"token *")
                 listaTokens.append(nuevo)
+            else:
+                while parrafo[control] != "*":
+                    control += 1
+                    columna += 1
+                    nuevo = ClaseToken(numerotk,fila,columna,parrafo[control],"comentario")
+                    listaTokens.append(nuevo)
 
-        elif estado is 7:
-            if letra[columna] == "/":
+        
+
+
+        if estado == 7:
+            if parrafo[control] == "/":
                 control+=1
-                estado = 100
+                estado = 8
                 numerotk += 1
-                columna += 100
-                fila = 200
+                columna += 1
                 palabra = "/"
                 #listaTokens.append(AgregarTk(numerotk,fila,columna,palabra,"token /"))
                 nuevo=ClaseToken(numerotk,fila,columna,palabra,"token /")
                 listaTokens.append(nuevo)
-                
+
+        if estado == 8:
+            control+=1
+            estado = 0
+            fila += 1
+                 
+
+
+
+
+
+
     print("\nAqui la lista: ")
     imprimejiji(listaTokens)
     
+
+
+
+
 def imprimejiji(listaT):
     j=0
     while j<len(listaTokens):
