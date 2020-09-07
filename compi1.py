@@ -7,6 +7,8 @@ import os
 import string
 import array as ar
 from AnalizadorCSS import Analisis
+from AnalizadorCSS import imprimejiji
+from AnalizadorCSS import imprimebitacora
 from Token import ClaseToken
 
 # ADRIANA GÒMEZ
@@ -145,7 +147,7 @@ class interfaz:
 		#print(parrafoentrada)
 		#self.MisTokens = AgregarTK()
 
-		#p = ""
+		#p = imprimebitacora
 		#for j in self.MisTokens:
 		#	p += j + '\n'
 

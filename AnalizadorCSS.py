@@ -17,6 +17,8 @@ def Analisis(parrafo):
     estado = 0
     numerotk = 0
     palabra = ""
+    palabra2=""
+    palbrabitacora=""
     #entrada = str(parrafo)
     #linea = entrada.split('\n')
     fila = 0
@@ -33,20 +35,46 @@ def Analisis(parrafo):
         if estado == 0:
             if parrafo[control] == "\n":
                 control+=1
-                fila+=1
-                numerotk+=1
+                fila += 1
+                columna = 0
+                estado = 0
+                palbrabitacora+="\nS0 -> S0: salto de linea"
             
+            elif parrafo[control] == " " :
+                control+=1
+                estado = 0
+                columna += 1
+
             elif parrafo[control] == "/":
                 control+=1
                 estado = 1
                 numerotk += 1
                 columna += 1
                 palabra = "/"
-                #listaTokens.append(AgregarTk(numerotk,fila,columna,palabra,"token /"))
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"token /")
-                listaTokens.append(nuevo)
-                
+                #nuevo=ClaseToken(numerotk,fila,columna,palabra,"token /")
+                #listaTokens.append(nuevo)
+                palbrabitacora+="\nS0 -> S1: token "+palabra
 
+            elif parrafo[control] == "*":
+                control+=1
+                estado = 2
+                numerotk += 1
+                columna += 1
+                palabra = "*"
+                #nuevo=ClaseToken(numerotk,fila,columna,palabra,"token *")    
+                #listaTokens.append(nuevo)
+                palbrabitacora+="\nS0 -> S2: token "+palabra
+
+            else:
+                #----- ERROR LEXICO ----#
+                control+=1
+                estado = 0
+                palabra = parrafo[control]
+                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                listaTokens.append(nuevo)
+
+            
+                
 
 
         if estado == 1:
@@ -56,10 +84,36 @@ def Analisis(parrafo):
                 numerotk += 1
                 columna += 1
                 palabra = "*"
-                #listaTokens.append(AgregarTk(numerotk,fila,columna,palabra,"token *"))
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"token *")
+                palbrabitacora+="\nS1 -> S6: token "+palabra
+            else:
+                #----- ERROR LEXICO ----#
+                control+=1
+                estado = 6
+                numerotk += 1
+                columna += 1
+                palabra = parrafo[control]
+                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
+
+
+        if estado == 2:
+            if parrafo[control] == "{":
+                control += 1
+                estado = 9
+                numerotk += 1
+                columna += 1
+                palabra = "{"
+                palbrabitacora+="\nS2 -> S9: token "+palabra
+            else:
+                #----- ERROR LEXICO ----#
+                control+=1
+                estado = 9
+                numerotk += 1
+                columna += 1
+                palabra = parrafo[control]
+                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                listaTokens.append(nuevo)
 
 
 
@@ -70,18 +124,14 @@ def Analisis(parrafo):
                 numerotk += 1
                 columna += 1
                 palabra = "*"
-                #listaTokens.append(AgregarTk(numerotk,fila,columna,palabra,"token *"))
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"token *")
-                listaTokens.append(nuevo)
+                palbrabitacora+="\nS6 -> S6: token "+palabra
             else:
                 while parrafo[control] != "*":
                     control += 1
                     columna += 1
-                    nuevo = ClaseToken(numerotk,fila,columna,parrafo[control],"comentario")
-                    listaTokens.append(nuevo)
+                    palbrabitacora+="\nS6 -> S6: '"+parrafo[control]+"' comentario"
 
         
-
 
         if estado == 7:
             if parrafo[control] == "/":
@@ -90,32 +140,87 @@ def Analisis(parrafo):
                 numerotk += 1
                 columna += 1
                 palabra = "/"
-                #listaTokens.append(AgregarTk(numerotk,fila,columna,palabra,"token /"))
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"token /")
+                palbrabitacora+="\nS7 -> S8: token "+palabra
+            else:
+                #----- ERROR LEXICO ----#
+                control+=1
+                estado = 8
+                numerotk += 1
+                columna += 1
+                palabra = parrafo[control]
+                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
         if estado == 8:
             control+=1
             estado = 0
             fila += 1
+            columna = 0
+            palbrabitacora+="\nS8 -> S0: estado aceptacion"
                  
 
 
+        if estado == 9:#----- ACEPTA PALABRAS ----#
+            if parrafo[control] != ":":
+                if parrafo[control] == " " or parrafo[control] == "\t":
+                    control += 1
+                    estado = 9
+                    columna += 1
+                    palbrabitacora+="\nS9 -> S9: espacio"
+                elif parrafo[control] == "\n":
+                    control += 1
+                    estado = 9
+                    fila += 1
+                    columna=0
+                    palbrabitacora+="\nS9 -> S9: salto de linea"
+                elif parrafo[control].isalpha() or parrafo[control].isnumeric():
+                    palabra=parrafo[control]
+                    columna += 1
+                    control+=1
+                    estado = 9
+                    numerotk += 1
+                    palbrabitacora+="\nS9 -> S9: token "+palabra
+                else:
+                    #----- ERROR LEXICO ----#
+                    control+=1
+                    estado = 9
+                    numerotk += 1
+                    columna += 1
+                    palabra = parrafo[control]
+                    nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                    listaTokens.append(nuevo)
+            elif parrafo[control] == ":":
+                control+=1
+                estado = 14
+                numerotk += 1
+                columna += 1
+                palabra = ":"
+                palbrabitacora+="\nS7 -> S8: token "+palabra
+
+
+        if estado == 14:
+            control+=1
+            estado = 0
+            fila += 1
+            columna = 0
+            palbrabitacora+="\nS14 -> S0: estado aceptacion"
 
 
 
 
-    print("\nAqui la lista: ")
-    imprimejiji(listaTokens)
+    print("bitacora: ",palbrabitacora)
+    print("\nAqui la lista de errores: ")
+    imprimejiji()
+    imprimebitacora(palbrabitacora)
     
 
+def imprimebitacora(palbrabitacora):
+    return palbrabitacora
 
 
-
-def imprimejiji(listaT):
+def imprimejiji():
     j=0
     while j<len(listaTokens):
-        #print(listaTokens[j].lexema)
         print(listaTokens[j].numeroToken,listaTokens[j].linea,listaTokens[j].columna,listaTokens[j].lexema,listaTokens[j].descripcion)
         j+=1
-   
+    
