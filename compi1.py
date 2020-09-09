@@ -10,6 +10,7 @@ from AnalizadorCSS import Analisis
 from AnalizadorCSS import imprimejiji
 from AnalizadorCSS import imprimebitacora
 from Token import ClaseToken
+from AnalizadorHTML import AnalizaHTML
 
 # ADRIANA GÒMEZ
 # 201504236
@@ -34,7 +35,7 @@ class interfaz:
 		self.boton4 = Button(self.ventana, text="Guardar como", bg="pink")
 		self.boton5 = Button(self.ventana, text="Analizar JSon", bg="pink")#, command=self.compilando)
 		self.boton7 = Button(self.ventana, text="Analizar CSS", bg="pink", command=self.compilandoCSS)
-		self.boton8 = Button(self.ventana, text="Analizar HTML", bg="pink")#, command=self.compilando)
+		self.boton8 = Button(self.ventana, text="Analizar HTML", bg="pink", command=self.compilandoHTML)
 		self.boton6 = Button(self.ventana, text="Salir", bg="pink", command=self.ventana.destroy)
 
 		self.boton1.grid(row=0,column=4)
@@ -154,7 +155,19 @@ class interfaz:
 		#self.areaTexto2.delete("1.0",END)
 		#self.areaTexto2.insert(INSERT, p)
 		
-		
+
+	def compilandoHTML(self):
+		parrafoentrada2 = str(self.areaTexto.get("1.0","end-1c"))
+		AnalizaHTML(parrafoentrada2)
+
+
+
+
+	def pruebahtml(self):
+		archivix=open("mihtml.html","w")
+		mensaje=""
+		archivix.write(mensaje)
+		archivix.close	
 
 
 

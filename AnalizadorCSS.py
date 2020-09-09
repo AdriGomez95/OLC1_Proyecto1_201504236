@@ -13,9 +13,10 @@ def Analisis(parrafo):
     #print(parrafo)  
     #listaTokens = list()
     listaReservada = ["color", "background-color", "background-image", "border", "Opacity", "background", "text-align", "font-family", "font-style", "font-weight", "font-size", "font", "padding-left", "padding-right", "padding-bottom", "padding-top", "padding", "display", "line-height", "width", "height", "margin-top", "margin-right", "margin-bottom", "margin-left", "margin", "border-style", "display", "position", "bottom", "top", "right", "left", "float", "clear", "max-width", "min-width", "max-height", "min-height"]
-    #listaTokens.clear()
+    listaTokens.clear()
     estado = 0
     numerotk = 0
+    numerotk2 = 0
     palabra = ""
     palabra2=""
     palbrabitacora=""
@@ -78,7 +79,8 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 0
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                numerotk2 += 1
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
             
@@ -98,9 +100,9 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 6
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
 
@@ -118,9 +120,9 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 9
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
 
@@ -158,9 +160,9 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 3
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
 
@@ -195,9 +197,9 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 8
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
         if estado == 8:
@@ -248,10 +250,10 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1 
                 estado = 15
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
-                listaTokens.append(nuevo)# ------ AQUI PARA DE BORRAR 
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
+                listaTokens.append(nuevo)
 
 
 
@@ -269,9 +271,9 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 11
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
 
@@ -303,9 +305,9 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 8
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
 
@@ -364,9 +366,9 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 15
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
 
@@ -434,9 +436,9 @@ def Analisis(parrafo):
                 palabra = parrafo[control]
                 control+=1
                 estado = 17
-                numerotk += 1
+                numerotk2 += 1
                 columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
+                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
                 listaTokens.append(nuevo)
 
         if estado == 18:
