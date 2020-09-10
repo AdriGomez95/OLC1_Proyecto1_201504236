@@ -1,5 +1,6 @@
 import string
 from Token import ClaseToken
+import os
 
 # ADRIANA GÒMEZ
 # 201504236
@@ -455,6 +456,7 @@ def Analisis(parrafo):
     print("\nAqui la lista de errores: ")
     imprimejiji()
     imprimebitacora(palbrabitacora)
+    codigoERRORES2()
     
 
 def imprimebitacora(palbrabitacora):
@@ -466,4 +468,76 @@ def imprimejiji():
     while j<len(listaTokens):
         print(listaTokens[j].numeroToken,listaTokens[j].linea,listaTokens[j].columna,listaTokens[j].lexema,listaTokens[j].descripcion)
         j+=1
+
+
+
+
+
+def codigoERRORES2():
     
+    cadenaMensaje = ""
+    contenidoer = ""
+    cadenaMensaje += "<!DOCTYPE html>\n"
+    cadenaMensaje += "<html>\n"
+    cadenaMensaje += "  <head>\n"
+    cadenaMensaje += "      <title> Listado de errores lexicos CSS </title>"
+    cadenaMensaje += "      <style>\n"
+
+    cadenaMensaje += "      html{\n"
+    cadenaMensaje += "          min-height: 100%;\n"
+    cadenaMensaje += "      }\n"
+
+    cadenaMensaje += "      body{\n"
+    cadenaMensaje += "          background: -webkit-linear-gradient(left, #93B874, #C9DCB9);\n"
+    cadenaMensaje += "          background: -o-linear-gradient(right, #93B874, #C9DCB9);\n"
+    cadenaMensaje += "          background: -moz-linear-gradient(right, #93B874, #C9DCB9);\n"
+    cadenaMensaje += "          background: linear-gradient(to right, #93B874, #C9DCB9);\n"
+    cadenaMensaje += "          background-color: #93B874;\n"
+    cadenaMensaje += "      }\n"       
+    
+    cadenaMensaje += "      </style>\n"
+    cadenaMensaje += "  </head>\n"
+    cadenaMensaje += "  <body>\n"
+    cadenaMensaje += "  <center>\n"
+    
+    cadenaMensaje += "  <br><h1> Listado de errores CSS </h1><br><br>\n"
+    cadenaMensaje += "  <table border=\"\">\n"
+    cadenaMensaje += "      <thead>\n"
+    cadenaMensaje += "          <tr>\n"
+    cadenaMensaje += "              <td> No. </td>\n"
+    cadenaMensaje += "              <td> Linea </td>\n"
+    cadenaMensaje += "              <td> Columna </td>\n"
+    cadenaMensaje += "              <td> Lexema </td>\n"
+    cadenaMensaje += "              <td> Descripción </td>\n"
+    cadenaMensaje += "          </tr>\n"
+    cadenaMensaje += "      </thead>\n"
+    cadenaMensaje += "erroresTable\n"
+    cadenaMensaje += "  </table>\n"
+
+
+    cadenaMensaje += "  </center>\n"
+    cadenaMensaje += "  </body>\n"
+    cadenaMensaje += "</html>\n"
+
+    u=0
+    while u<len(listaTokens):
+        contenidoer += "        <tr>\n"
+        contenidoer += "            <td>" +str(listaTokens[u].numeroToken)+ "</td>\n"
+        contenidoer += "            <td>" +str(listaTokens[u].linea)+ "</td>\n"
+        contenidoer += "            <td>" +str(listaTokens[u].columna)+ "</td>\n"
+        contenidoer += "            <td>" +listaTokens[u].lexema+ "</td>\n"
+        contenidoer += "            <td>" +listaTokens[u].descripcion+ "</td>\n"
+        contenidoer += "        </tr>\n"
+        u+=1
+
+    contenido = cadenaMensaje.replace("erroresTable",contenidoer)
+    cadenaMensaje=""
+    contenidoer=""
+    Guarda2(contenido)
+
+
+def Guarda2(reporte):
+    arch = open("erroresCSS.html","w+")
+    arch.write(reporte)
+    arch.close()
+    os.startfile("erroresCSS.html")

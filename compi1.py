@@ -163,12 +163,6 @@ class interfaz:
 
 
 
-	def pruebahtml(self):
-		archivix=open("mihtml.html","w")
-		mensaje=""
-		archivix.write(mensaje)
-		archivix.close	
-
 
 
 if __name__=='__main__':
