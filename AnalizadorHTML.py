@@ -29,6 +29,10 @@ def AnalizaHTML(parrafo):
                 control+=1
                 columna += 1
                 estado = 1
+            elif parrafo[control] == ">":
+                control+=1
+                columna += 1
+                estado = 1
             elif parrafo[control] == "/":
                 control+=1
                 columna += 1
@@ -135,8 +139,7 @@ def AnalizaHTML(parrafo):
                 control+=1
                 columna += 1
                 estado = 4
-            else:
-                while parrafo[control] != "<":
+            elif parrafo[control] != "<":
                     #if parrafo[control] == "\n":
                     #    fila += 1
                     #    break
@@ -144,14 +147,18 @@ def AnalizaHTML(parrafo):
                     #    break
                     control+=1
                     columna += 1
+                    estado = 3
+            elif parrafo[control] == "\n":
+                control+=1 
+                fila += 1
+                estado = 3
 
 
 
         if estado == 4:
-            control+=1
             columna += 1
             estado = 0
-            print("Analizado correctamente")
+            #print("Analizado correctamente")
 
 
 
@@ -183,7 +190,7 @@ def AnalizaHTML(parrafo):
             control+=1
             columna += 1
             estado = 0
-            print("Analizado correctamente")
+            #print("Analizado correctamente")
 
 
     imprimeerror()

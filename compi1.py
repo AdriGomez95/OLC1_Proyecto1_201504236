@@ -11,6 +11,7 @@ from AnalizadorCSS import imprimejiji
 from AnalizadorCSS import imprimebitacora
 from Token import ClaseToken
 from AnalizadorHTML import AnalizaHTML
+from AnalizadorJS import AnalizaJS
 
 # ADRIANA GÒMEZ
 # 201504236
@@ -33,7 +34,7 @@ class interfaz:
 		self.boton2 = Button(self.ventana, text="Abrir", bg="pink", command=self.abrirArchivo)
 		self.boton3 = Button(self.ventana, text="Guardar", bg="pink", command=self.guardarArchivo)
 		self.boton4 = Button(self.ventana, text="Guardar como", bg="pink")
-		self.boton5 = Button(self.ventana, text="Analizar JSon", bg="pink")#, command=self.compilando)
+		self.boton5 = Button(self.ventana, text="Analizar JSon", bg="pink", command=self.compilandoJS)
 		self.boton7 = Button(self.ventana, text="Analizar CSS", bg="pink", command=self.compilandoCSS)
 		self.boton8 = Button(self.ventana, text="Analizar HTML", bg="pink", command=self.compilandoHTML)
 		self.boton6 = Button(self.ventana, text="Salir", bg="pink", command=self.ventana.destroy)
@@ -72,12 +73,6 @@ class interfaz:
 		self.label4.grid(row=3,column=2)
 
 
-	####-------------- METODO PARA GUARDAR --------------####
-	#def abrirArchivo(self):
-	#	archivito = filedialog.askopenfilename(title="abrir")
-	#	self.areaTexto(archivito)
-		#print(archivito)
-      
 	####-------------- METODO PARA ABRIR --------------####
 	def abrirArchivo(self):
 		archivito = filedialog.askopenfilename(title="abrir", filetypes=(("archivos de texto","*.txt"),("archivos pdf","*.pdf")))
@@ -87,7 +82,7 @@ class interfaz:
 			archi.close()
 			self.areaTexto.delete("1.0",END)
 			self.areaTexto.insert("1.0",contenido)
-		#print(archivito)
+		
       
 	
 	####-------------- METODO PARA GUARDAR --------------####
@@ -156,9 +151,18 @@ class interfaz:
 		#self.areaTexto2.insert(INSERT, p)
 		
 
+	####-------------- METODO PARA ANALIZAR HTML --------------####
 	def compilandoHTML(self):
 		parrafoentrada2 = str(self.areaTexto.get("1.0","end-1c"))
 		AnalizaHTML(parrafoentrada2)
+
+
+
+
+	####-------------- METODO PARA ANALIZAR JS --------------####
+	def compilandoJS(self):
+		parrafoentrada2 = str(self.areaTexto.get("1.0","end-1c"))
+		AnalizaJS(parrafoentrada2)
 
 
 
