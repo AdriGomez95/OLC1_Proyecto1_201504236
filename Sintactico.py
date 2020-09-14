@@ -1,7 +1,10 @@
 import string
 import os
+from TokenSintactico import ClaseTokenSintactico
 
 
+
+listit= list()
 
 def AnalizaSintactico(parrafo):
     estado = 0
@@ -10,6 +13,7 @@ def AnalizaSintactico(parrafo):
     control =0
     contpara=0
     contparc=0
+    listit.clear()
     #---- RECORRIENDO EL PARRAFO ----#
     while control < len(parrafo):
 
@@ -122,7 +126,7 @@ def AnalizaSintactico(parrafo):
                     estado = 1
 
                 elif parrafo[control] == "\n":
-                    palabra+=parrafo[control]
+                    #palabra+=parrafo[control]
                     control+=1
                     estado = 2
                 else:
@@ -145,6 +149,13 @@ def AnalizaSintactico(parrafo):
                     respuesta = "INCORRECTO"
             else:
                 break
+            nuevo=ClaseTokenSintactico(palabra,respuesta)
+            listit.append(nuevo)
+            palabra=""
+            respuesta="CORRECTO"
+            contpara = 0
+            contparc = 0
+            estado=0
         
         if estado == 3:
             if parrafo[control].isalpha():
@@ -188,13 +199,99 @@ def AnalizaSintactico(parrafo):
                 control+=1
                 estado = 3
             elif parrafo[control] == "\n":
-                palabra+=parrafo[control]
+                nuevo=ClaseTokenSintactico(palabra,respuesta)
+                listit.append(nuevo)
                 control+=1
                 estado = 4
 
         if estado == 4:
+            palabra=""
+            respuesta="CORRECTO"
+            contpara = 0
+            contparc = 0
             estado = 0
         
 
     print(contpara, " ",contparc)
-    print("\nTexto: ",palabra, " es: ",respuesta)
+    #print("\nTexto: ",palabra, " es: ",respuesta)
+
+
+
+    
+
+    print("\n\n\nAqui la lista de errores: ")
+    imprimeerror()
+    codigoERRORES()
+
+def imprimeerror():
+    j=0
+    while j<len(listit):
+        print(listit[j].lex,listit[j].des)
+        j+=1
+
+
+
+def codigoERRORES():
+    
+    cadenaMensaje = ""
+    contenidoer = ""
+    cadenaMensaje += "<!DOCTYPE html>\n"
+    cadenaMensaje += "<html>\n"
+    cadenaMensaje += "  <head>\n"
+    cadenaMensaje += "      <title> Reporte sintactico </title>"
+    cadenaMensaje += "      <style>\n"
+
+    cadenaMensaje += "      html{\n"
+    cadenaMensaje += "          min-height: 100%;\n"
+    cadenaMensaje += "      }\n"
+
+    cadenaMensaje += "      body{\n"
+    cadenaMensaje += "          background: -webkit-linear-gradient(left, #93B874, #C9DCB9);\n"
+    cadenaMensaje += "          background: -o-linear-gradient(right, #93B874, #C9DCB9);\n"
+    cadenaMensaje += "          background: -moz-linear-gradient(right, #93B874, #C9DCB9);\n"
+    cadenaMensaje += "          background: linear-gradient(to right, #93B874, #C9DCB9);\n"
+    cadenaMensaje += "          background-color: #93B874;\n"
+    cadenaMensaje += "      }\n"       
+    
+    cadenaMensaje += "      </style>\n"
+    cadenaMensaje += "  </head>\n"
+    cadenaMensaje += "  <body>\n"
+    cadenaMensaje += "  <center>\n"
+    
+    cadenaMensaje += "  <br><h1> Reporte de análisis sintáctico </h1><br><br>\n"
+    cadenaMensaje += "  <table border=\"\">\n"
+    cadenaMensaje += "      <thead>\n"
+    cadenaMensaje += "          <tr>\n"
+    cadenaMensaje += "              <td> Lexema </td>\n"
+    cadenaMensaje += "              <td> Descripción </td>\n"
+    cadenaMensaje += "          </tr>\n"
+    cadenaMensaje += "      </thead>\n"
+    cadenaMensaje += "erroresTable\n"
+    cadenaMensaje += "  </table>\n"
+
+
+    cadenaMensaje += "  </center>\n"
+    cadenaMensaje += "  </body>\n"
+    cadenaMensaje += "</html>\n"
+
+    u=0
+    while u<len(listit):
+        contenidoer += "        <tr>\n"
+        contenidoer += "            <td>" +listit[u].lex+ "</td>\n"
+        contenidoer += "            <td>" +listit[u].des+ "</td>\n"
+        contenidoer += "        </tr>\n"
+        u+=1
+
+    contenido = cadenaMensaje.replace("erroresTable",contenidoer)
+    cadenaMensaje=""
+    contenidoer=""
+    Guarda(contenido)
+
+
+def Guarda(reporte):
+    arch = open("reportesintactico.html","w+")
+    arch.write(reporte)
+    arch.close()
+    os.startfile("reportesintactico.html")
+
+
