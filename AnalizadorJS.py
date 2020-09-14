@@ -1,6 +1,9 @@
 import string
 from Token import ClaseToken
 import os
+from graphviz import Digraph
+import webbrowser
+
 
 listitaError= list()
 
@@ -227,10 +230,10 @@ def AnalizaJS(parrafo):
 
     #print("bitacora: ")
     #imprimebitacora(palabra)
-    print("\n\n\nAqui la lista de errores: ")
-    imprimeerror()
-    codigoERRORES()
-
+    #print("\n\n\nAqui la lista de errores: ")
+    #imprimeerror()
+    #codigoERRORES()
+    grafo()
 
 #def imprimebitacora(palbrabitacora):
 #    return palbrabitacora
@@ -243,9 +246,6 @@ def imprimeerror():
     while j<len(listitaError):
         print(listitaError[j].numeroToken,listitaError[j].linea,listitaError[j].columna,listitaError[j].lexema,listitaError[j].descripcion)
         j+=1
-
-
-
 
 
 
@@ -319,3 +319,49 @@ def Guarda(reporte):
     os.startfile("erroresJS.html")
 
 
+
+
+
+
+
+
+def grafo():
+    #dot = Digraph(comment='Estados')
+    #dot.attr('node',shape='circle')
+
+    #dot.node('A','S1')
+    #dot.node('B','S2')
+    #dot.node('A', shape='doublecircle')
+    #dot.edges(['AB','BB'])
+
+    #dot.render("ID.gv",view=False)
+    #os.startfile("ID.gv"+".pdf")
+
+    os.system("dot -Tjpg automatas.dot -o automatas.jpg")
+
+    automata = "digraph g{ \n"
+    automata += "rankdir=LR; \n"
+    automata += "node[shape=circle, color=\"pink\",]; S0, S1, S2, S4; \n"    
+    automata += "node[shape=doublecircle, color=\"pink\", style=\"filled\"]; S3, S5, S7, S8; \n \n"
+    
+    automata += "S0 -> S1 [label = \" / \", color=\"pink\"];\n"
+    automata += "S1 -> S2 [label = \" / \", color=\"pink\"];\n"
+    automata += "S2 -> S2 [label = \" T \", color=\"pink\"];\n"
+    automata += "S2 -> S3 [label = \" /n \", color=\"pink\"];\n"
+    automata += "S1 -> S4 [label = \" * \", color=\"pink\"];\n"
+    automata += "S4 -> S4 [label = \" T \", color=\"pink\"];\n"
+    automata += "S4 -> S5 [label = \" / \", color=\"pink\"];\n\n"
+    
+    automata += "S0 -> S7 [label = \" L \", color=\"pink\"];\n"
+    automata += "S7 -> S7 [label = \" (L|_|D) \", color=\"pink\"];\n"
+    automata += "S0 -> S8 [label = \" D \", color=\"pink\"];\n"
+    automata += "S8 -> S8 [label = \" D \", color=\"pink\"];\n"
+    
+    
+    automata += "} \n"
+
+    
+    escribir2 = open("automatas.dot", "w", encoding="utf-8")
+    escribir2.write(automata)
+    escribir2.close()
+    
