@@ -12,6 +12,7 @@ from AnalizadorCSS import imprimebitacora
 from Token import ClaseToken
 from AnalizadorHTML import AnalizaHTML
 from AnalizadorJS import AnalizaJS
+from Sintactico import AnalizaSintactico 
 
 # ADRIANA GÒMEZ
 # 201504236
@@ -26,18 +27,18 @@ class interfaz:
 		self.ventana.geometry("840x600")
 		self.ventana.title("proyecto 1 - Adriana Gòmez")
 		self.ventana.configure(background='pale violet red')
-
-
+		#self.Sintactico = Sintactic()
 
 		####--------------AQUI VAN LOS BOTONES
 		self.boton1 = Button(self.ventana, text="Nuevo", bg="pink")
 		self.boton2 = Button(self.ventana, text="Abrir", bg="pink", command=self.abrirArchivo)
 		self.boton3 = Button(self.ventana, text="Guardar", bg="pink", command=self.guardarArchivo)
 		self.boton4 = Button(self.ventana, text="Guardar como", bg="pink")
+		self.boton6 = Button(self.ventana, text="Salir", bg="pink", command=self.ventana.destroy)
 		self.boton5 = Button(self.ventana, text="Analizar JSon", bg="pink", command=self.compilandoJS)
 		self.boton7 = Button(self.ventana, text="Analizar CSS", bg="pink", command=self.compilandoCSS)
 		self.boton8 = Button(self.ventana, text="Analizar HTML", bg="pink", command=self.compilandoHTML)
-		self.boton6 = Button(self.ventana, text="Salir", bg="pink", command=self.ventana.destroy)
+		self.boton9 = Button(self.ventana, text="Sintactico", bg="pink", command=self.compilandoSintactico)
 
 		self.boton1.grid(row=0,column=4)
 		self.boton2.grid(row=0,column=5)
@@ -47,6 +48,8 @@ class interfaz:
 		self.boton6.grid(row=0,column=9)
 		self.boton7.grid(row=1,column=8)
 		self.boton8.grid(row=2,column=8)
+		self.boton9.grid(row=3,column=8)
+
 
 
 		####-------------- AREAS DE TEXTO 
@@ -55,10 +58,11 @@ class interfaz:
 		self.label2 = Label(self.ventana,text='Còdigo salida:',  bg="pink")
 		self.areaTexto2 = Text(self.ventana, height=40, width=50)
 
-		self.label1.grid(row=3,column=0)
-		self.areaTexto.grid(row=4,column=0)
-		self.label2.grid(row=3,column=10)
-		self.areaTexto2.grid(row=4,column=10)
+		self.label1.grid(row=4,column=0)
+		self.areaTexto.grid(row=5,column=0)
+		self.label2.grid(row=4,column=10)
+		self.areaTexto2.grid(row=5,column=10)
+
 
 
 		####-------------- POSICION DEL CURSOR 
@@ -73,9 +77,12 @@ class interfaz:
 		self.label4.grid(row=3,column=2)
 
 
+
+
+
 	####-------------- METODO PARA ABRIR --------------####
 	def abrirArchivo(self):
-		archivito = filedialog.askopenfilename(title="abrir", filetypes=(("archivos de texto","*.txt"),("archivos pdf","*.pdf")))
+		archivito = filedialog.askopenfilename(title="abrir")
 		if archivito!=' ':
 			archi=open(archivito, "r", encoding="utf-8")
 			contenido=archi.read()
@@ -93,6 +100,10 @@ class interfaz:
 			archi.write(self.areaTexto.get("1.0", END))
 			archi.close()
 			messagebox.showinfo("Informacion","los datos han sido guardados correctamente")
+
+
+
+
 
 
 	####-------------- METODO PARA ANALIZAR --------------####
@@ -161,8 +172,15 @@ class interfaz:
 
 	####-------------- METODO PARA ANALIZAR JS --------------####
 	def compilandoJS(self):
-		parrafoentrada2 = str(self.areaTexto.get("1.0","end-1c"))
-		AnalizaJS(parrafoentrada2)
+		parrafoentrada3 = str(self.areaTexto.get("1.0","end-1c"))
+		AnalizaJS(parrafoentrada3)
+
+
+
+	####-------------- METODO PARA ANALIZAR Sintactico --------------####
+	def compilandoSintactico(self):
+		parrafoentrada4 = str(self.areaTexto.get("1.0","end-1c"))
+		AnalizaSintactico(parrafoentrada4)
 
 
 
