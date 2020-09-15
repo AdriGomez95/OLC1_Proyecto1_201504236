@@ -2,6 +2,12 @@ import string
 from Token import ClaseToken
 import os
 
+# ADRIANA GÒMEZ
+# 201504236
+# COMPILADORES 1
+
+
+
 listaError = list()
 
 def AnalizaHTML(parrafo):
@@ -193,8 +199,16 @@ def AnalizaHTML(parrafo):
             #print("Analizado correctamente")
 
 
+
+
+    print("\nAqui la lista de errores: ")
     imprimeerror()
-    codigoERRORES()
+
+    if listaError:
+        codigoERRORES()
+    else:
+        print("\nlista de errores vacia")
+    
 
 
 def imprimeerror():

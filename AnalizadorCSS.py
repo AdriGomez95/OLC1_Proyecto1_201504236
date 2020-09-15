@@ -451,16 +451,19 @@ def Analisis(parrafo):
 
 
 
-
-    print("bitacora: ",palbrabitacora)
     print("\nAqui la lista de errores: ")
     imprimejiji()
-    imprimebitacora(palbrabitacora)
-    codigoERRORES2()
+    #codigoERRORES2()
+
+    if listaTokens:
+        codigoERRORES2()
+    else:
+        print("\nlista de errores vacia")
     
 
-def imprimebitacora(palbrabitacora):
+
     return palbrabitacora
+
 
 
 def imprimejiji():

@@ -2,6 +2,11 @@ import string
 import os
 from TokenSintactico import ClaseTokenSintactico
 
+# ADRIANA GÒMEZ
+# 201504236
+# COMPILADORES 1
+
+
 
 
 listit= list()
@@ -222,6 +227,8 @@ def AnalizaSintactico(parrafo):
     print("\n\n\nAqui la lista de errores: ")
     imprimeerror()
     codigoERRORES()
+
+
 
 def imprimeerror():
     j=0

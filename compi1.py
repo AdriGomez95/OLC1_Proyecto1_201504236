@@ -7,8 +7,6 @@ import os
 import string
 import array as ar
 from AnalizadorCSS import Analisis
-from AnalizadorCSS import imprimejiji
-from AnalizadorCSS import imprimebitacora
 from Token import ClaseToken
 from AnalizadorHTML import AnalizaHTML
 from AnalizadorJS import AnalizaJS
@@ -147,26 +145,26 @@ class interfaz:
 			#tokensMalos = ar.array()	
 
 
+
+
+
+
+
+
 	####-------------- METODO PARA ANALIZAR CSS --------------####
 	def compilandoCSS(self):
 		parrafoentrada = str(self.areaTexto.get("1.0","end-1c"))
-		Analisis(parrafoentrada)
-		#print(parrafoentrada)
-		#self.MisTokens = AgregarTK()
-
-		#p = imprimebitacora
-		#for j in self.MisTokens:
-		#	p += j + '\n'
-
-		#self.areaTexto2.delete("1.0",END)
-		#self.areaTexto2.insert(INSERT, p)
+		getpar = Analisis(parrafoentrada)
 		
+		self.areaTexto2.delete("1.0",END)
+		self.areaTexto2.insert(INSERT, getpar)
+		
+
 
 	####-------------- METODO PARA ANALIZAR HTML --------------####
 	def compilandoHTML(self):
 		parrafoentrada2 = str(self.areaTexto.get("1.0","end-1c"))
 		AnalizaHTML(parrafoentrada2)
-
 
 
 

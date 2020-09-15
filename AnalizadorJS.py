@@ -4,6 +4,12 @@ import os
 from graphviz import Digraph
 import webbrowser
 
+# ADRIANA GÒMEZ
+# 201504236
+# COMPILADORES 1
+
+
+
 
 listitaError= list()
 
@@ -112,7 +118,6 @@ def AnalizaJS(parrafo):
 
         if estado == 2:
             if parrafo[control] == "\n":
-                control+=1
                 estado = 3
                 columna += 1
                 palabra+="\nS2 -> S3: salto de linea"
@@ -228,15 +233,15 @@ def AnalizaJS(parrafo):
 
 
 
-    #print("bitacora: ")
-    #imprimebitacora(palabra)
-    #print("\n\n\nAqui la lista de errores: ")
-    #imprimeerror()
-    #codigoERRORES()
+    print("\n\n\nAqui la lista de errores: ")
+    imprimeerror()
     grafo()
 
-#def imprimebitacora(palbrabitacora):
-#    return palbrabitacora
+    if listitaError:
+        codigoERRORES()
+    else:
+        print("\nlista de errores vacia")
+    
 
 
 
