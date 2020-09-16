@@ -170,38 +170,20 @@ def Analisis(parrafo):
 
 
         if estado == 6:
-            if parrafo[control] == "*":
-                control+=1
-                estado = 7
+            if parrafo[control] == "/":
+                estado = 8
                 numerotk += 1
                 columna += 1
                 palabra = "*"
                 palbrabitacora+="\nS6 -> S7: token "+palabra
             else:
-                while parrafo[control] != "*":
+                while parrafo[control] != "/":
                     columna += 1
                     palbrabitacora+="\nS6 -> S6: '"+parrafo[control]+"' comentario"
                     control += 1
 
         
 
-        if estado == 7:
-            if parrafo[control] == "/":
-                control+=1
-                estado = 8
-                numerotk += 1
-                columna += 1
-                palabra = "/"
-                palbrabitacora+="\nS7 -> S8: token "+palabra
-            else:
-                #----- ERROR LEXICO ----#
-                palabra = parrafo[control]
-                control+=1
-                estado = 8
-                numerotk2 += 1
-                columna += 1
-                nuevo=ClaseToken(numerotk2,fila,columna,palabra,"error lexico")
-                listaTokens.append(nuevo)
 
         if estado == 8:
             control+=1

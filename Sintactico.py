@@ -69,6 +69,11 @@ def AnalizaSintactico(parrafo):
                     control+=1
                     estado = 1
 
+                elif parrafo[control] == "_":
+                    palabra+=parrafo[control]
+                    control+=1
+                    estado = 1
+
                 elif parrafo[control].isnumeric():
                     palabra+=parrafo[control]
                     control+=1
@@ -93,6 +98,8 @@ def AnalizaSintactico(parrafo):
                     palabra+=parrafo[control]
                     if parrafo[control+1]==".":
                         respuesta = "INCORRECTO"
+                    else:
+                        respuesta = "CORRECTO"
                     control+=1
                     contparc+=1
                     estado = 1

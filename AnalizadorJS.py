@@ -138,33 +138,15 @@ def AnalizaJS(parrafo):
 
 
         if estado == 4:
-            if parrafo[control] == "*":
-                control+=1
-                estado = 5
+            if parrafo[control] == "/":
+                estado = 6
                 columna += 1
                 palabra +="\nS4 -> S5: token *"
             else:
-                while parrafo[control] != "*":
+                while parrafo[control] != "/":
                     columna += 1
                     palabra+="\nS4 -> S4: '"+parrafo[control]+"' comentario multilinea"
                     control += 1
-
-        
-        if estado == 5:
-            if parrafo[control] == "/":
-                control+=1
-                estado = 6
-                columna += 1
-                palabra +="\nS5 -> S6: token /"
-            else:
-                #----- ERROR LEXICO ----#
-                palabra = parrafo[control]
-                control+=1
-                estado = 0
-                numerotk += 1
-                columna += 1
-                nuevo=ClaseToken(numerotk,fila,columna,palabra,"error lexico")
-                listitaError.append(nuevo)
 
         if estado == 6:
             control+=1
@@ -346,8 +328,8 @@ def grafo():
 
     automata = "digraph g{ \n"
     automata += "rankdir=LR; \n"
-    automata += "node[shape=circle, color=\"pink\",]; S0, S1, S2, S4; \n"    
-    automata += "node[shape=doublecircle, color=\"pink\", style=\"filled\"]; S3, S5, S7, S8; \n \n"
+    automata += "node[shape=circle, color=\"pink\",]; S1, S2, S4, S9; \n"    
+    automata += "node[shape=doublecircle, color=\"pink\", style=\"filled\"]; S0, S3, S5, S7, S8, S10; \n \n"
     
     automata += "S0 -> S1 [label = \" / \", color=\"pink\"];\n"
     automata += "S1 -> S2 [label = \" / \", color=\"pink\"];\n"
@@ -357,10 +339,14 @@ def grafo():
     automata += "S4 -> S4 [label = \" T \", color=\"pink\"];\n"
     automata += "S4 -> S5 [label = \" / \", color=\"pink\"];\n\n"
     
+    automata += "S0 -> S0 [label = \" (/n|/t|" ") \", color=\"pink\"];\n"
     automata += "S0 -> S7 [label = \" L \", color=\"pink\"];\n"
     automata += "S7 -> S7 [label = \" (L|_|D) \", color=\"pink\"];\n"
     automata += "S0 -> S8 [label = \" D \", color=\"pink\"];\n"
     automata += "S8 -> S8 [label = \" D \", color=\"pink\"];\n"
+    automata += "S8 -> S9 [label = \" . \", color=\"pink\"];\n"
+    automata += "S9 -> S10 [label = \" D \", color=\"pink\"];\n"
+    automata += "S10 -> S10 [label = \" D \", color=\"pink\"];\n"
     
     
     automata += "} \n"
